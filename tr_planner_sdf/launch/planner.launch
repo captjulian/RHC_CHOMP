@@ -1,0 +1,68 @@
+<!-- Launch file for the planning test -->
+<launch>
+  <arg name="robot_name" default="hummingbird1"/>
+  <arg name="voxel_size" default="0.20" />
+  <arg name="voxels_per_side" default="16" />
+  <arg name="world_frame" default="world" />
+  <arg name="xmin" 						default="-1.0"/>
+  <arg name="xmax" 						default="51.0"/>
+  <arg name="ymin" 						default="0.0"/>
+  <arg name="ymax" 						default="50.0"/>
+  <arg name="zmin" 						default="0.25"/>
+  <arg name="zmax" 						default="1.5"/>
+  <arg name="g_x" 						default="50.0"/>
+  <arg name="g_y" 						default="25.0"/>
+  <arg name="g_z" 						default="0.5"/>
+  <arg name="max_n" 						default="40"/>
+  <arg name="vemax" 					        default="8"/>
+  <!--arg name="acmax" 					        default="6"/-->
+  <arg name="acmax" 					        default="14"/>
+  <arg name="s_rad" 					        default="10"/>
+  <arg name="r_rad" 					        default="0.3"/>
+  <arg name="delta_t" 					        default="0.1"/>
+  <arg name="RRT_E" 					        default="0.5"/>
+  <arg name="random_initial_x" 					default="0"/>
+  <arg name="random_goal_x" 					default="50"/>
+  <arg name="random_up_lim_y" 			                default="35.0"/>
+  <arg name="random_low_lim_y" 			                default="15.0"/>
+  <arg name="random_up_lim_y_initial" 			        default="35.0"/>
+  <arg name="random_low_lim_y_initial" 			        default="15.0"/>
+  <arg name="file_name" 					default="/home/liang/ijmav_paper/planner_data_record/document_woods_10.txt"/>
+
+  <node name="sdf_planner_node" pkg="TR_PLANNER_SDF" type="sdf_planner_node" output="screen" args="-alsologtostderr">
+    <remap from="odometry" to="/hummingbird1/vi_sensor/ground_truth/odometry" />
+    <!--remap from="transform" to="uav_trans" /-->	
+    <remap from="sdf_planner_node/esdf_map_in" to="esdf_map" />
+    <param name="use_tf_transforms" value="true" />
+    <param name="tsdf_voxel_size" value="$(arg voxel_size)" />
+    <param name="tsdf_voxels_per_side" value="$(arg voxels_per_side)" />
+    <param name="update_mesh_every_n_sec" value="0.0" />
+    <param name="publish_traversable" value="true" />
+    <param name="world_frame" value="$(arg world_frame)" />
+
+    <param name = "xmin"     					value="$(arg xmin)" 	 			type="double" />
+    <param name = "xmax"     					value="$(arg xmax)" 	 			type="double" />
+    <param name = "ymin"     					value="$(arg ymin)" 	 			type="double" />
+    <param name = "ymax"     					value="$(arg ymax)" 	 			type="double" />
+    <param name = "zmin"     					value="$(arg zmin)" 	 			type="double" />
+    <param name = "zmax"     					value="$(arg zmax)" 	 			type="double" />
+    <param name = "g_x"     					value="$(arg g_x)" 	 			type="double" />
+    <param name = "g_y"     					value="$(arg g_y)" 	 			type="double" />
+    <param name = "g_z"     					value="$(arg g_z)" 	 			type="double" />
+    <param name = "max_n"     					value="$(arg max_n)" 	 			type="int" />
+    <param name = "vemax"     					value="$(arg vemax)" 	 			type="double" />
+    <param name = "acmax"     					value="$(arg acmax)" 	 			type="double" />
+    <param name = "s_rad"     					value="$(arg s_rad)" 	 			type="double" />
+    <param name = "r_rad"     					value="$(arg r_rad)" 	 			type="double" />
+    <param name = "delta_t"     			        value="$(arg delta_t)" 	 			type="double" />
+    <param name = "RRT_E"     					value="$(arg RRT_E)" 	 			type="double" />
+    <param name = "random_initial_x"     			value="$(arg random_initial_x)" 	 	type="double" />
+    <param name = "random_goal_x"     				value="$(arg random_goal_x)" 	 		type="double" />
+    <param name = "random_up_lim_y"     			value="$(arg random_up_lim_y)" 	 		type="double" />
+    <param name = "random_low_lim_y"     			value="$(arg random_low_lim_y)" 	 	type="double" />
+    <param name = "random_up_lim_y_initial"     		value="$(arg random_up_lim_y_initial)" 	 	type="double" />
+    <param name = "random_low_lim_y_initial"     		value="$(arg random_low_lim_y_initial)" 	type="double" />
+    <param name = "file_name"     				value="$(arg file_name)" 	 		type="string" />
+  </node>
+
+</launch>
